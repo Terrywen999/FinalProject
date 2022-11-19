@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
 	private float dashTime;
 	public float startDashTime;
 	private bool once;
-	
-    
+
+	public FirePath firePath;
 
     void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -38,13 +38,16 @@ public class PlayerController : MonoBehaviour
 
 				//transform.localScale = Vector3.one;
 				moveSpeed = startMoveSpeed;
-	}
+
+		
+
+    }
 
 	private void FixedUpdate()
 	{
-      
 
-		Vector2 desiredVelocity = movement * moveSpeed;
+        firePath.AddPosition(transform.position);
+        Vector2 desiredVelocity = movement * moveSpeed;
 		rb.velocity = Vector2.SmoothDamp(rb.velocity, desiredVelocity, ref velocity, moveSmooth);
 
 		Vector2 lookDir = mousePos - rb.position;
